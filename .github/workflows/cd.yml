@@ -6,7 +6,14 @@ name: Node.js CD
 on:
   push:
     branches: [ main ]
-
+env:
+  PORT: ${{secrets.API_PORT}}
+  TS3_HOST: ${{secrets.TS3_HOST}}
+  TS3_SERVER_PORT: ${{secrets.TS3_PORT}}
+  TS3_QUERY_PORT: ${{secrets.TS3_QUERY_PORT}}
+  TS3_USER: ${{secrets.TS3_USER}}
+  TS3_PASS: ${{secrets.TS3_PASS}}
+  TS3_NICK: ${{secrets.TS3_NICK}}
 jobs:
   build:
     runs-on: self-hosted
