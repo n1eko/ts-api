@@ -22,6 +22,13 @@ jobs:
         node-version: [14.x]
     steps:
     - uses: actions/checkout@v2
+    - uses: chrnorm/deployment-action@releases/v1
+      name: Create GitHub deployment
+      id: deployment
+      with:
+        token: "${{ github.token }}"
+        target_url: https://tsapi.n1eko.com/
+        environment: production
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
@@ -39,3 +46,20 @@ jobs:
           echo TS3_NICK=${{ secrets.TS3_NICK }} >> .env
     - run: npm install
     - run: pm2 restart TS3API
+    - name: Update deployment status (success)
+      if: success()
+      uses: chrnorm/deployment-status@releases/v1
+      with:
+        token: "${{ github.token }}"
+        target_url: https://tsapi.n1eko.com/
+        state: "success"
+        deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+
+    - name: Update deployment status (failure)
+      if: failure()
+      uses: chrnorm/deployment-status@releases/v1
+      with:
+        token: "${{ github.token }}"
+        target_url: https://tsapi.n1eko.com/
+        state: "failure"
+        deployment_id: ${{ steps.deployment.outputs.deployment_id }}
