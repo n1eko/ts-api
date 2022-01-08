@@ -27,5 +27,15 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - name: Create env file
+      run: |
+          touch .env
+          echo PORT=${{ secrets.API_PORT }} >> .env
+          echo TS3_HOST=${{ secrets.TS3_HOST }} >> .env
+          echo TS3_SERVER_PORT=${{ secrets.TS3_PORT }} >> .env
+          echo TS3_QUERY_PORT=${{ secrets.TS3_QUERY_PORT }} >> .env
+          echo TS3_USER=${{ secrets.TS3_USER }} >> .env
+          echo TS3_PASS=${{ secrets.TS3_PASS }} >> .env
+          echo TS3_NICK=${{ secrets.TS3_NICK }} >> .env
     - run: npm install
     - run: pm2 restart TS3API
