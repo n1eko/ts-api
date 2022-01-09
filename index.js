@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 
+const swaggerUI = require('swagger-ui-express');
+
 const notFound = require('./middleware/notFound.js')
 const handleErrors = require('./middleware/handleErrors.js')
 
@@ -12,6 +14,7 @@ const channelsRouter = require('./controllers/channels')
 app.use(cors());
 app.use(express.json());
 
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(require('./swagger.json')));
 app.use('/api/users', usersRouter)
 app.use('/api/channels', channelsRouter)
 

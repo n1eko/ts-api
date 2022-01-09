@@ -1,0 +1,133 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "TS3 API",
+      "version": "1.0.0",
+      "title": "Swagger TS3",
+      "contact": {
+        "email": "contacto@n1eko.com"
+      }
+    },
+    "host": "tsapi.n1eko.com",
+    "basePath": "/api",
+    "tags": [
+      {
+        "name": "Users",
+        "description": "Operations about users"
+      },
+      {
+        "name": "Channels",
+        "description": "Operations about channels"
+      }
+    ],
+    "schemes": [
+      "https",
+      "http"
+    ],
+    "paths": {
+      "/users": {
+        "get": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "Get all users connected",
+          "description": "Get all users connected",
+          "operationId": "getUsers",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid status value"
+            }
+          }
+        }
+      },
+      "/channels/{id}": {
+        "get": {
+          "tags": [
+            "Channels"
+          ],
+          "summary": "Get channel info",
+          "description": "Get channel info",
+          "operationId": "getChannelInfo",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Channel ID",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/Channel"
+              }
+            },
+            "500": {
+              "description": "Invalid channel ID"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "channel": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string"
+          },
+          "isMuted": {
+            "type": "boolean"
+          },
+          "country": {
+            "type": "string"
+          }
+        }
+      },
+      "Channel": {
+        "type": "object",
+        "required": [
+          "name",
+          "photoUrls"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "capacity": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "isSecured": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
