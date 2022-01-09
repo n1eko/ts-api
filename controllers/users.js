@@ -4,8 +4,9 @@ const getTeamSpeakService = require('../services/teamspeak');
 const tsService = getTeamSpeakService();
 
 usersRouter.get('/', async (request, response) => {
-    const clients = await tsService.getClientList();
-    response.json(clients);
+    await tsService.getClientList().then(clientList => {
+        response.json(clientList);})
+    .catch(err => next(err));
 })
 
 module.exports = usersRouter
