@@ -3,9 +3,17 @@ const getTeamSpeakService = require('../services/teamspeak');
 
 const tsService = getTeamSpeakService();
 
-channelsRouter.get('/', async (request, response) => {
-    const clients = await tsService.getClientList();
-    response.json(clients);
+channelsRouter.get('/:id', async (request, response, next) => {
+const { id } = request.params
+
+await tsService.getChannelInfo(id).then(channelInfo => {
+    response.json(channelInfo);})
+.catch(err => {
+    next(err);
+}
+);
+
 })
+
 
 module.exports = channelsRouter

@@ -1,12 +1,10 @@
-const e = require("express");
 const { TeamSpeak, QueryProtocol } = require("ts3-nodejs-library")
 const { TS3_HOST, TS3_SERVER_PORT,TS3_QUERY_PORT, TS3_USER, TS3_PASS, TS3_NICK, NODE_ENV} = process.env
 
 class TeamspeakService {
 
     constructor() {
-        console.log("Initializing teamspeak interface");
-        console.log("Connecting to teamspeak... ");
+        console.log("Initializing teamspeak service");
 
         if(this.client){
             return;
@@ -23,13 +21,6 @@ class TeamspeakService {
             keepAlive: true
         });
 
-
-        this.client.on("clientconnect", ev => {
-            let client = ev.client;
-            console.log(`Client ${client.nickname} just connected`);
-        });
-
-
         this.client.on("ready", () => {
             console.log("Teamspeak interface connected and ready!");
         });
@@ -41,8 +32,34 @@ class TeamspeakService {
     }
     
     async getClientList() {
-        return await this.client.clientList({
-            clientType: 0 
+        return await this.client.clientList({clientType: 0 })
+            .then(rawClientList => {
+                return rawClientList.map(rawUser => {
+                    const userData = rawUser.propcache;
+                    const userJson = {
+                        id: userData.clid,
+                        name: userData.clientNickname,
+                        channel: userData.cid,
+                        platform: userData.clientPlatform,
+                        isMuted: userData.clientInputMuted,
+                        country: userData.clientCountry
+                    }
+                    return userJson;
+                });
+            });
+    }
+    
+    
+    async getChannelInfo(id) {
+        return await this.client.channelInfo(id).
+        then(rawChannelInfo => {
+            const channelData = rawChannelInfo;
+            const channelJson = {
+                name: channelData.channelName,
+                capacity: channelData.channelMaxclients,
+                isSecured: channelData.channelFlagPassword
+            }
+            return channelJson;
         });
     }
 
