@@ -19,7 +19,7 @@ const authRouter = require('./controllers/auth')
 app.use(cors());
 app.use(express.json());
 
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(require('./swagger.json')));
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(require('./docs/swagger.json')));
 app.use('/api/users', usersRouter)
 app.use('/api/channels', validateToken, channelsRouter)
 app.use('/api/auth', authRouter)

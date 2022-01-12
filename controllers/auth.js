@@ -29,9 +29,8 @@ authRouter.post('/register', async (request, response) => {
     });
     try {
         const savedUser = await user.save();
-        response.json({
-            error: null,
-            data: savedUser
+        response.status(201).json({
+            result: "User registered successfully",
         })
     } catch (error) {
         response.status(400).json({error})
