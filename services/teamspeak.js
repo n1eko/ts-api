@@ -62,15 +62,15 @@ class TeamspeakService {
     
     
     async getChannelList() {
-        return await this.client.channelList().
-            then(rawChannelList => {
+        return await this.client.channelList()
+            .then(rawChannelList => {
                 const channelList = rawChannelList.map(rawChannel => {
                     const channel = rawChannel.propcache;
                     return {
                         id: channel.cid,
                         name: channel.channelName,
                         capacity: channel.channelMaxclients,
-                        isSecured: channel.channelFlagPassword
+                        hasPassword: channel.channelFlagPassword
                     }
                 });
                 return channelList;
@@ -78,18 +78,26 @@ class TeamspeakService {
     }
     
     
-    async getServerList() {
-        return await this.client.serverList().
-            then(rawServerList => {
-                return rawServerList
-            });
+    async getServer() {
+        return await this.client.serverInfo()
+        .then(serverInfo => {
+            return {
+                id: serverInfo.virtualserverId,
+                name: serverInfo.virtualserverName,
+                status: serverInfo.virtualserverStatus,
+                platform: serverInfo.virtualserverPlatform,
+                version: serverInfo.virtualserverVersion,
+                maxClients: serverInfo.virtualserverMaxclients,
+                clientsOnline: serverInfo.virtualserverClientsonline,
+                //Uptime in seconds
+                uptime: serverInfo.virtualserverUptime,
+                averagePing: serverInfo.virtualserverTotalPing,
+                totalClientConnections: serverInfo.virtualserverClientConnections,
+                totalBytesSent: serverInfo.connectionBytesSentTotal,
+                totalBytesReceived: serverInfo.connectionBytesReceivedTotal,
+            }
+        });
     }
-    
-    
-    async getServerInfo(id) {
-        return await this.client.serverInfo(id);
-    }
-
 }
 
 const teamspeakservice = new TeamspeakService();

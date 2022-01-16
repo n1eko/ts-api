@@ -15,10 +15,10 @@ const serversRouter = require('./controllers/servers')
 app.use(cors());
 app.use(express.json());
 
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(require('./swagger.json')));
-app.use('/api/users', usersRouter)
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(require('./docs/openapi.json')));
+app.use('/api/clients', usersRouter)
 app.use('/api/channels', channelsRouter)
-app.use('/api/servers', serversRouter)
+app.use('/api/server', serversRouter)
 
 app.use(notFound)
 app.use(handleErrors)

@@ -4,17 +4,7 @@ const getTeamSpeakService = require('../services/teamspeak');
 const tsService = getTeamSpeakService();
 
 serversRouter.get('/', async (request, response, next) => {
-    await tsService.getServerList()
-        .then(serverList => {response.json(serverList);})
-        .catch(err => {
-            next(err);
-        }
-    );
-})
-
-serversRouter.get('/:id', async (request, response, next) => {
-    const { id } = request.params
-    await tsService.getServerInfo(id)
+    await tsService.getServer()
         .then(serverInfo => {response.json(serverInfo);})
         .catch(err => {
             next(err);
