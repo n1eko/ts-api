@@ -24,9 +24,12 @@
     "standard": "16.0.4"
   },
   "dependencies": {
+    "apollo-server": "3.6.1",
     "cors": "2.8.5",
+    "dataloader": "2.0.0",
     "dotenv": "10.0.0",
     "express": "4.17.2",
+    "graphql": "^16.2.0",
     "swagger-ui-express": "4.3.0",
     "ts3-nodejs-library": "3.4.0"
   },

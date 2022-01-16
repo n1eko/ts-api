@@ -35,16 +35,15 @@ class TeamspeakService {
         return await this.client.clientList({clientType: 0 })
             .then(rawClientList => {
                 return rawClientList.map(rawUser => {
-                    const userData = rawUser.propcache;
-                    const userJson = {
-                        id: userData.clid,
-                        name: userData.clientNickname,
-                        channel: userData.cid,
-                        platform: userData.clientPlatform,
-                        isMuted: userData.clientInputMuted,
-                        country: userData.clientCountry
+                    const user = rawUser.propcache;
+                    return {
+                        id: user.clid,
+                        name: user.clientNickname,
+                        channel: user.cid,
+                        platform: user.clientPlatform,
+                        isMuted: user.clientInputMuted,
+                        country: user.clientCountry
                     }
-                    return userJson;
                 });
             });
     }
@@ -52,15 +51,43 @@ class TeamspeakService {
     
     async getChannelInfo(id) {
         return await this.client.channelInfo(id).
-        then(rawChannelInfo => {
-            const channelData = rawChannelInfo;
-            const channelJson = {
-                name: channelData.channelName,
-                capacity: channelData.channelMaxclients,
-                isSecured: channelData.channelFlagPassword
+        then(channel => {
+            return {
+                name: channel.channelName,
+                capacity: channel.channelMaxclients,
+                isSecured: channel.channelFlagPassword
             }
-            return channelJson;
         });
+    }
+    
+    
+    async getChannelList() {
+        return await this.client.channelList().
+            then(rawChannelList => {
+                const channelList = rawChannelList.map(rawChannel => {
+                    const channel = rawChannel.propcache;
+                    return {
+                        id: channel.cid,
+                        name: channel.channelName,
+                        capacity: channel.channelMaxclients,
+                        isSecured: channel.channelFlagPassword
+                    }
+                });
+                return channelList;
+            });
+    }
+    
+    
+    async getServerList() {
+        return await this.client.serverList().
+            then(rawServerList => {
+                return rawServerList
+            });
+    }
+    
+    
+    async getServerInfo(id) {
+        return await this.client.serverInfo(id);
     }
 
 }
