@@ -26,12 +26,28 @@ const typeDefs = gql`
     type Query {
         clients: [Client]!
         channels: [Channel]!
+        server: Server!
     }
 
-    type Channel  @cacheControl(maxAge: 30, scope: PUBLIC){
+    type Channel{
         name: String!
         capacity: Int!
         isSecured: Boolean!
+    }
+
+    type Server{
+        id: ID!
+        name: String!
+        status: String!
+        platform: String!
+        version: String!
+        maxClients: Int!
+        clientsOnline: Int!
+        uptime: Int!
+        averagePing: Float!
+        totalClientConnections: Int!
+        totalBytesSent: Float!
+        totalBytesReceived: Float!
     }
 `;
 

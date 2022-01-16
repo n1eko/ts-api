@@ -24,6 +24,13 @@ const resolvers = {
             } catch (err) {
                 console.log(err);
             }
+        },
+        server: async () => {
+            try {
+                return await tsService.getServer();
+            } catch (err) {
+                console.log(err);
+            }
         }
     },
     Client: {
