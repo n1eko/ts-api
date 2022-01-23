@@ -53,9 +53,10 @@ class TeamspeakService {
         return await this.client.channelInfo(id).
         then(channel => {
             return {
+                id: channel.cid,
                 name: channel.channelName,
                 capacity: channel.channelMaxclients,
-                isSecured: channel.channelFlagPassword
+                hasPassword: channel.channelFlagPassword
             }
         });
     }
