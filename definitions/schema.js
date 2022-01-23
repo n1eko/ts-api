@@ -30,9 +30,10 @@ const typeDefs = gql`
     }
 
     type Channel{
+        id: ID!
         name: String!
         capacity: Int!
-        isSecured: Boolean!
+        hasPassword: Boolean!
     }
 
     type Server{
