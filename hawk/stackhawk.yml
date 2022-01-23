@@ -1,0 +1,8 @@
+app:
+  applicationId: 470607b9-1f9c-408a-82c3-6ea0e2c23b4c
+  env: Production
+  host: https://tsapi.n1eko.com
+  openApiConf:
+    path: /api-docs/
+  autoPolicy: true
+  autoInputVectors: true
