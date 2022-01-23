@@ -35,16 +35,15 @@ class TeamspeakService {
         return await this.client.clientList({clientType: 0 })
             .then(rawClientList => {
                 return rawClientList.map(rawUser => {
-                    const userData = rawUser.propcache;
-                    const userJson = {
-                        id: userData.clid,
-                        name: userData.clientNickname,
-                        channel: userData.cid,
-                        platform: userData.clientPlatform,
-                        isMuted: userData.clientInputMuted,
-                        country: userData.clientCountry
+                    const user = rawUser.propcache;
+                    return {
+                        id: user.clid,
+                        name: user.clientNickname,
+                        channel: user.cid,
+                        platform: user.clientPlatform,
+                        isMuted: user.clientInputMuted,
+                        country: user.clientCountry
                     }
-                    return userJson;
                 });
             });
     }
@@ -52,17 +51,54 @@ class TeamspeakService {
     
     async getChannelInfo(id) {
         return await this.client.channelInfo(id).
-        then(rawChannelInfo => {
-            const channelData = rawChannelInfo;
-            const channelJson = {
-                name: channelData.channelName,
-                capacity: channelData.channelMaxclients,
-                isSecured: channelData.channelFlagPassword
+        then(channel => {
+            return {
+                id: channel.cid,
+                name: channel.channelName,
+                capacity: channel.channelMaxclients,
+                hasPassword: channel.channelFlagPassword
             }
-            return channelJson;
         });
     }
-
+    
+    
+    async getChannelList() {
+        return await this.client.channelList()
+            .then(rawChannelList => {
+                const channelList = rawChannelList.map(rawChannel => {
+                    const channel = rawChannel.propcache;
+                    return {
+                        id: channel.cid,
+                        name: channel.channelName,
+                        capacity: channel.channelMaxclients,
+                        hasPassword: channel.channelFlagPassword
+                    }
+                });
+                return channelList;
+            });
+    }
+    
+    
+    async getServer() {
+        return await this.client.serverInfo()
+        .then(serverInfo => {
+            return {
+                id: serverInfo.virtualserverId,
+                name: serverInfo.virtualserverName,
+                status: serverInfo.virtualserverStatus,
+                platform: serverInfo.virtualserverPlatform,
+                version: serverInfo.virtualserverVersion,
+                maxClients: serverInfo.virtualserverMaxclients,
+                clientsOnline: serverInfo.virtualserverClientsonline,
+                //Uptime in seconds
+                uptime: serverInfo.virtualserverUptime,
+                averagePing: serverInfo.virtualserverTotalPing,
+                totalClientConnections: serverInfo.virtualserverClientConnections,
+                totalBytesSent: serverInfo.connectionBytesSentTotal,
+                totalBytesReceived: serverInfo.connectionBytesReceivedTotal,
+            }
+        });
+    }
 }
 
 const teamspeakservice = new TeamspeakService();
