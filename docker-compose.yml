@@ -1,0 +1,10 @@
+version: '3.4'
+services:
+  rest-api:
+    image: tsapi:0.0.1
+    container_name: tsapi
+    env_file: .env
+    ports:
+      - 3001:3001
+      - 4000:4000
+    restart: always

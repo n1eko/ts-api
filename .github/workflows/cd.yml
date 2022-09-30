@@ -31,6 +31,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: docker build . -t tsapi:0.0.1
     - name: Create env file
       run: |
           touch .env
@@ -41,8 +42,7 @@ jobs:
           echo TS3_USER=${{ secrets.TS3_USER }} >> .env
           echo TS3_PASS=${{ secrets.TS3_PASS }} >> .env
           echo TS3_NICK=${{ secrets.TS3_NICK }} >> .env
-    - run: npm install
-    - run: pm2 restart TS3API
+    - run: docker-compose up -d
     - name: Update deployment status (success)
       if: success()
       uses: chrnorm/deployment-status@releases/v1
