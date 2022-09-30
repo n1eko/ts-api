@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/n1eko/ts-api#readme",
   "devDependencies": {
-    "nodemon": "2.0.15",
+    "nodemon": "2.0.20",
     "standard": "16.0.4"
   },
   "dependencies": {
