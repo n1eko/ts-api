@@ -14,9 +14,6 @@ env:
 jobs:
   build:
     runs-on: self-hosted
-    strategy:
-      matrix:
-        node-version: [14.x]
     steps:
     - uses: actions/checkout@v2
     - uses: chrnorm/deployment-action@releases/v1
@@ -26,11 +23,6 @@ jobs:
         token: "${{ github.token }}"
         target_url: https://tsapi.n1eko.com/
         environment: production
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
     - run: docker build . -t tsapi:0.0.1
     - name: Create env file
       run: |
