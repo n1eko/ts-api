@@ -11,6 +11,7 @@ const handleErrors = require('./middleware/handleErrors.js')
 const usersRouter = require('./controllers/users')
 const channelsRouter = require('./controllers/channels')
 const serversRouter = require('./controllers/servers')
+const logsRouter = require('./controllers/logs')
 
 app.use(cors());
 app.use(express.json());
@@ -19,6 +20,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(require('./docs/openapi.js
 app.use('/api/clients', usersRouter)
 app.use('/api/channels', channelsRouter)
 app.use('/api/server', serversRouter)
+app.use('/api/logs', logsRouter)
 
 app.use(notFound)
 app.use(handleErrors)

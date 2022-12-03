@@ -27,6 +27,7 @@ const typeDefs = gql`
         clients: [Client]!
         channels: [Channel]!
         server: Server!
+        log: [Log]!
     }
 
     type Channel{
@@ -49,6 +50,13 @@ const typeDefs = gql`
         totalClientConnections: Int!
         totalBytesSent: Float!
         totalBytesReceived: Float!
+    }
+
+    type Log{
+        id: String!
+        user: String!
+        date: String!
+        type: String!
     }
 `;
 

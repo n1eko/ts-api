@@ -31,6 +31,13 @@ const resolvers = {
             } catch (err) {
                 console.log(err);
             }
+        },
+        log: async () => {
+            try {
+                return await tsService.getLastConnectionsFromLog();
+            } catch (err) {
+                console.log(err);
+            }
         }
     },
     Client: {

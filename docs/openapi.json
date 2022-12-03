@@ -1,250 +1,409 @@
 {
-    "openapi": "3.0.1",
-    "info": {
-      "title": "Swagger TS3",
-      "description": "TS3 API",
-      "contact": {
-        "email": "contact@n1eko.com"
-      },
-      "version": "1.0.0"
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Swagger TS3",
+    "description": "TS3 API",
+    "contact": {
+      "email": "contact@n1eko.com"
     },
-    "servers": [
-      {
-        "url": "https://tsapi.n1eko.com/api"
-      }
-    ],
-    "tags": [
-      {
-        "name": "Clients",
-        "description": "Operations about clients"
-      },
-      {
-        "name": "Channels",
-        "description": "Operations about channels"
-      },
-      {
-        "name": "Server",
-        "description": "Operations about server"
-      }
-    ],
-    "paths": {
-      "/clients": {
-        "get": {
-          "tags": [
-            "Clients"
-          ],
-          "summary": "Get all clients connected",
-          "description": "Get all clients connected",
-          "operationId": "getUsers",
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Client"
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://tsapi.n1eko.com/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Clients",
+      "description": "Operations about clients"
+    },
+    {
+      "name": "Channels",
+      "description": "Operations about channels"
+    },
+    {
+      "name": "Server",
+      "description": "Operations about server"
+    }
+  ],
+  "paths": {
+    "/clients": {
+      "get": {
+        "tags": [
+          "Clients"
+        ],
+        "summary": "Get all clients connected",
+        "description": "Get all clients connected",
+        "operationId": "getUsers",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "channel": {
+                        "type": "string"
+                      },
+                      "platform": {
+                        "type": "string"
+                      },
+                      "isMuted": {
+                        "type": "boolean"
+                      },
+                      "country": {
+                        "type": "string"
+                      }
                     }
                   }
                 }
               }
-            },
-            "400": {
-              "description": "Invalid status value",
-              "content": {}
             }
-          }
-        }
-      },
-      "/channels": {
-        "get": {
-          "tags": [
-            "Channels"
-          ],
-          "summary": "Get all channels",
-          "description": "Get all channels",
-          "operationId": "getChannels",
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Channel"
-                    }
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Invalid status value",
-              "content": {}
-            }
-          }
-        }
-      },
-      "/channels/{id}": {
-        "get": {
-          "tags": [
-            "Channels"
-          ],
-          "summary": "Get channel info",
-          "description": "Get channel info",
-          "operationId": "getChannelInfo",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "Channel ID",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Channel"
-                  }
-                }
-              }
-            },
-            "500": {
-              "description": "Invalid channel ID",
-              "content": {}
-            }
-          }
-        }
-      },
-      "/server": {
-        "get": {
-          "tags": [
-            "Server"
-          ],
-          "summary": "Get server info",
-          "description": "Get server info",
-          "operationId": "getServerInfo",
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Server"
-                  }
-                }
-              }
-            },
-            "500": {
-              "description": "Invalid channel ID",
-              "content": {}
-            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
           }
         }
       }
     },
-    "components": {
-      "schemas": {
-        "Client": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "channel": {
-              "type": "string"
-            },
-            "platform": {
-              "type": "string"
-            },
-            "isMuted": {
-              "type": "boolean"
-            },
-            "country": {
+    "/channels": {
+      "get": {
+        "tags": [
+          "Channels"
+        ],
+        "summary": "Get all channels",
+        "description": "Get all channels",
+        "operationId": "getChannels",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "required": [
+                      "name"
+                    ],
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "capacity": {
+                        "type": "integer",
+                        "format": "int64"
+                      },
+                      "isSecured": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/channels/{id}": {
+      "get": {
+        "tags": [
+          "Channels"
+        ],
+        "summary": "Get channel info",
+        "description": "Get channel info",
+        "operationId": "getChannelInfo",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Channel ID",
+            "required": true,
+            "schema": {
               "type": "string"
             }
           }
-        },
-        "Channel": {
-          "required": [
-            "name"
-          ],
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "capacity": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "isSecured": {
-              "type": "boolean"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "required": [
+                    "name"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "capacity": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "isSecured": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
             }
+          },
+          "500": {
+            "description": "Invalid channel ID",
+            "content": {}
           }
-        },
-        "Server": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "status": {
-              "type": "string"
-            },
-            "platform": {
-              "type": "string"
-            },
-            "version": {
-              "type": "string"
-            },
-            "maxClients": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "clientsOnline": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "uptime": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "serverUptime": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "averagePing": {
-              "type": "integer",
-              "format": "float"
-            },
-            "totalClientConnections": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "totalBytesSent": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "totalBytesReceived": {
-              "type": "integer",
-              "format": "int64"
+        }
+      }
+    },
+    "/server": {
+      "get": {
+        "tags": [
+          "Server"
+        ],
+        "summary": "Get server info",
+        "description": "Get server info",
+        "operationId": "getServerInfo",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "platform": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "string"
+                    },
+                    "maxClients": {
+                      "type": "integer",
+                      "format": "int32"
+                    },
+                    "clientsOnline": {
+                      "type": "integer",
+                      "format": "int32"
+                    },
+                    "uptime": {
+                      "type": "integer",
+                      "format": "int32"
+                    },
+                    "serverUptime": {
+                      "type": "integer",
+                      "format": "int32"
+                    },
+                    "averagePing": {
+                      "type": "integer",
+                      "format": "float"
+                    },
+                    "totalClientConnections": {
+                      "type": "integer",
+                      "format": "int32"
+                    },
+                    "totalBytesSent": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "totalBytesReceived": {
+                      "type": "integer",
+                      "format": "int64"
+                    }
+                  }
+                }
+              }
             }
+          },
+          "500": {
+            "description": "Invalid channel ID",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/logs": {
+      "get": {
+        "tags": [
+          "Logs"
+        ],
+        "summary": "Get connection logs",
+        "description": "Get connection logs",
+        "operationId": "getLogs",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "date": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Client": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "channel": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string"
+          },
+          "isMuted": {
+            "type": "boolean"
+          },
+          "country": {
+            "type": "string"
+          }
+        }
+      },
+      "Channel": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "capacity": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "isSecured": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Server": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "maxClients": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "clientsOnline": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "uptime": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "serverUptime": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "averagePing": {
+            "type": "integer",
+            "format": "float"
+          },
+          "totalClientConnections": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalBytesSent": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalBytesReceived": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "Log": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
           }
         }
       }
     }
   }
+}
