@@ -79,6 +79,24 @@ class TeamspeakService {
     }
     
     
+    async getLastConnectionsFromLog() {
+        return await this.client.logView(100, 1, 0, 0)
+        .then((log) => {
+            return log.filter((logEntry) => {
+                return logEntry.l.includes("connected") && !logEntry.l.includes("query")
+            }).map(logEntry => {
+                const matches = logEntry.l.match(/(.*)\..*\|INFO.*\'(.*)\'\(id:(.*)\)/);
+                return {
+                    id: matches[3],
+                    user: matches[2],
+                    date: matches[1],
+                    type: logEntry.l.includes("disconnected") ? 'disconnect' : 'connect'
+                }
+            });
+        });
+    }
+    
+    
     async getServer() {
         return await this.client.serverInfo()
         .then(serverInfo => {
