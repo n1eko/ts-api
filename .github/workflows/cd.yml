@@ -13,7 +13,7 @@ env:
   TS3_NICK: ${{secrets.TS3_NICK}}
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: [self-hosted, ARM64]
     steps:
     - uses: actions/checkout@v2
     - uses: chrnorm/deployment-action@releases/v1

@@ -22,5 +22,5 @@ TS3_NICK=NodeJS
 ```
 - [Swagger](https://tsapi.n1eko.com/api-docs)
 - [GraphQL](https://tsapi.n1eko.com/graphql)
-- [Frontend implementation](https://github.com/n1eko/ts-front)
+- [Frontend](https://github.com/n1eko/ts-front)
 
