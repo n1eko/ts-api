@@ -4,7 +4,6 @@
 # TS3 WEB API
 
 <div>
-
 [![Node.js CD](https://github.com/n1eko/ts-api/actions/workflows/cd.yml/badge.svg?branch=main)](https://github.com/n1eko/ts-api/actions/workflows/cd.yml)
 [![Node.js CI](https://github.com/n1eko/ts-api/actions/workflows/ci.yml/badge.svg)](https://github.com/n1eko/ts-api/actions/workflows/ci.yml)
 </div>
