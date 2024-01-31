@@ -20,7 +20,9 @@ const typeDefs = gql`
         channel: Channel!
         platform: String!
         isMuted: Boolean!
+        hasOutputMuted: Boolean!
         country: String!
+        lastConnectedDate: Int!
     }
 
     type Query {

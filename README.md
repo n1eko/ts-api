@@ -1,25 +1,29 @@
 
-<center>
+# TS3 NODE API
 
-# TS3 WEB API
+A brief description of what this project does and who it's for
 
-<div>
-[![Node.js CD](https://github.com/n1eko/ts-api/actions/workflows/cd.yml/badge.svg?branch=main)](https://github.com/n1eko/ts-api/actions/workflows/cd.yml)
-[![Node.js CI](https://github.com/n1eko/ts-api/actions/workflows/ci.yml/badge.svg)](https://github.com/n1eko/ts-api/actions/workflows/ci.yml)
-</div>
-</center>
 
-- .env
+## Environment Variables
 
-```
-TS3_HOST=localhost
-TS3_SERVER_PORT=9987
-TS3_QUERY_PORT=10011
-TS3_USER=serveradmin
-TS3_PASS=password
-TS3_NICK=NodeJS
-```
+To run this project, you will need to add the following environment variables to your .env file
+
+`TS3_HOST`
+
+`TS3_SERVER_PORT`
+
+`TS3_QUERY_PORT`
+
+`TS3_USER`
+
+`TS3_PASS`
+
+`TS3_NICK`
+
+
+## API Reference
+
+
 - [Swagger](https://tsapi.n1eko.com/api-docs)
 - [GraphQL](https://tsapi.n1eko.com/graphql)
 - [Frontend](https://github.com/n1eko/ts-front)
-
