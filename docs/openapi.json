@@ -61,7 +61,13 @@
                       "isMuted": {
                         "type": "boolean"
                       },
+                      "hasOutputMuted": {
+                        "type": "boolean"
+                      },
                       "country": {
+                        "type": "string"
+                      },
+                      "lastConnectedDate": {
                         "type": "string"
                       }
                     }

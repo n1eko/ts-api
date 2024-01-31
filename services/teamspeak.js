@@ -42,7 +42,9 @@ class TeamspeakService {
                         channel: user.cid,
                         platform: user.clientPlatform,
                         isMuted: user.clientInputMuted,
-                        country: user.clientCountry
+                        hasOutputMuted: user.clientOutputMuted,
+                        country: user.clientCountry,
+                        lastConnectedDate: user.clientLastconnected
                     }
                 });
             });
@@ -108,7 +110,6 @@ class TeamspeakService {
                 version: serverInfo.virtualserverVersion,
                 maxClients: serverInfo.virtualserverMaxclients,
                 clientsOnline: serverInfo.virtualserverClientsonline,
-                //Uptime in seconds
                 uptime: serverInfo.virtualserverUptime,
                 averagePing: serverInfo.virtualserverTotalPing,
                 totalClientConnections: serverInfo.virtualserverClientConnections,
