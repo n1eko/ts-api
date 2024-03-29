@@ -14,8 +14,8 @@ const serversRouter = require('./controllers/servers')
 const logsRouter = require('./controllers/logs')
 
 app.use(cors());
+app.options('*', cors());
 app.use(express.json());
-
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(require('./docs/openapi.json')));
 app.use('/api/clients', usersRouter)
 app.use('/api/channels', channelsRouter)
